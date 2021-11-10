@@ -4,6 +4,7 @@ node_modules/
 # vscode拡張で生成されてるファイル関係
 .clj-kondo/
 .lsp/
+output.calva-repl
 # shadow-cljsが生成するファイル関係
 resources/public/js
 resources/main.js
