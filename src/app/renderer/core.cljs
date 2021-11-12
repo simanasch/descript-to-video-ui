@@ -1,6 +1,7 @@
 (ns app.renderer.core
   (:require [reagent.core :as r]
-            [reagent.dom :as rd]))
+            [reagent.dom :as rd]
+            [app.main.client :as client]))
 
 (enable-console-print!)
 
@@ -20,11 +21,13 @@
        [:form
         [:div>label "対象markdownの選択画面"]
         [:div
-         [:label {:to "markdown-file"} (:path @other-form-state)]
          [:input#markdown-file {:type "file" 
                                 :title "変換対象のmarkdown" 
                                 :name  "markdown-file"
                                 :on-change #(handle-file-change %)}]
+         ]
+        [:div
+         [:label {:to "markdown-file"} (str "選択したファイルのパス:" (:path @other-form-state))]
          ]
         [:div
          [:label (:sample @other-form-state)]
@@ -35,7 +38,7 @@
         ;;  (str "submit")]
         ]
       ;;  [:label (:value @other-form-state)]
-      ;;  [:button {:on-click #(swap! other-form-state assoc :value "clicked!!!!!!")} (str "sample")]
+       [:button {:on-click #(client/echo-test (:path @other-form-state))} (str "backendに送る")]
        ])))
 
 (defn root-component []
