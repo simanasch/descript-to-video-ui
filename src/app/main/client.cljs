@@ -7,19 +7,13 @@
 
 (defn send-message-to-server [mes]
   (go
-    (let [{:keys [ws-channel error]} (<! channel)]
-      (if-not error
-        (>! ws-channel mes)
-        (js/console.log "Error:" (pr-str error))))))
-
-(defn echo-test [mes]
-  (go
     (let [{:keys [ws-channel error]} (<! (ws-ch "ws://localhost:3000/ws"))]
       (if-not error
         (do (>! ws-channel mes)
             (let [{:keys [message error]} (<! ws-channel)]
               (if-not error
                 (do
+                  (js/console.log "Response message:" message)
                   (println "Got:" message)
                   (close! ws-channel))
                 (println "Error:" (pr-str error)))))
@@ -31,7 +25,6 @@
       (if-not error
         (>! ws-channel "hello server")
         (js/console.log "Error:" (pr-str error)))))
-  ()
   (go
     (let [{:keys [ws-channel error]} (<! channel)]
       (if-not error

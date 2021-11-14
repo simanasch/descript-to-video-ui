@@ -9,37 +9,36 @@
 ;; (defonce form-state (r/atom '{:value "test"}))
 
 (defn form-component []
-  (let [other-form-state (r/atom {:value "test" :sample ""})
-        handle-change #(swap! other-form-state assoc :value %)
-        handle-file-change (fn [tgt] 
-                             (js/console.log (-> tgt .-target .-value))
+  (let [other-form-state (r/atom {:markdown-path "" :exo-path ""})
+        ;; handle-change #(swap! other-form-state assoc :value %)
+        handle-file-change (fn [key tgt] 
+                            ;;  (js/console.log (-> tgt .-target .-value))
                              (if (not (= "" (-> tgt .-target .-value)))
-                               (swap! other-form-state assoc :path (-> tgt .-target .-files (aget 0) .-path))
+                               (swap! other-form-state assoc (keyword key) (-> tgt .-target .-files (aget 0) .-path))
                                nil))]
     (fn []
       [:<>
-       [:form
-        [:div>label "対象markdownの選択画面"]
-        [:div
-         [:input#markdown-file {:type "file" 
-                                :title "変換対象のmarkdown" 
-                                :name  "markdown-file"
-                                :on-change #(handle-file-change %)}]
-         ]
-        [:div
-         [:label {:to "markdown-file"} (str "選択したファイルのパス:" (:path @other-form-state))]
-         ]
-        [:div
-         [:label (:sample @other-form-state)]
-         [:input {:on-change #(handle-change
-                               (.. % -target -value))}]]
-        ;; [:button
-        ;;  {:on-click #(js/alert "click")}
-        ;;  (str "submit")]
-        ]
+       [:h3 "対象markdownの選択画面"]
+       [:div
+        [:label {:for "exo-file"} (str "テンプレにする.exoファイル:" (:exo-path @other-form-state))]
+        [:input#exo-file {:type "file"
+                               :title "テンプレにする.exoファイル"
+                               :name  "exo-file"
+                               :on-change #(handle-file-change "exo-path" %)}]]
+
+       [:div
+        [:label {:for "markdown-file"} (str "スライドとttsを出力するmarkdown:" (:markdown-path @other-form-state))]
+        [:input#markdown-file {:type "file"
+                               :title "変換対象のmarkdown"
+                               :name  "markdown-file"
+                               :on-change #(handle-file-change "markdown-path" %)}]]
+      ;;  [:div
+      ;;   [:label (:sample @other-form-state)]
+      ;;   [:input {:on-change #(handle-change
+      ;;                         (.. % -target -value))}]]
+
       ;;  [:label (:value @other-form-state)]
-       [:button {:on-click #(client/echo-test (:path @other-form-state))} (str "backendに送る")]
-       ])))
+       [:button.button-primary {:on-click #(if-not (empty? @other-form-state) (client/send-message-to-server (str @other-form-state)))} (str "backendに送る")]])))
 
 (defn root-component []
   [:div
