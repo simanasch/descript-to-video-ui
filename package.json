@@ -16,7 +16,7 @@
   "author": "simana <tktossi@live.com>",
   "license": "Eclipse Public License - v 2.0",
   "devDependencies": {
-    "electron": "^8.2.5",
+    "electron": "^15.3.1",
     "electron-packager": "^15.4.0",
     "shadow-cljs": "^2.8.110"
   },
