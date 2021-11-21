@@ -9,3 +9,5 @@ output.calva-repl
 resources/public/js
 resources/main.js
 target/
+# electron-packagerの出力
+descript-to-video*/
