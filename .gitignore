@@ -9,5 +9,6 @@ output.calva-repl
 resources/public/js
 resources/main.js
 target/
-# electron-packagerの出力
-descript-to-video*/
+# electron-builderの出力
+dist/
+*.tgz
