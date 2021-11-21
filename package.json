@@ -16,6 +16,12 @@
     "electron"
   ],
   "author": "simana <tktossi@live.com>",
+  "build": {
+    "appId": "descript-to-video.ui",
+    "win": {
+      "target": "portable"
+    }
+  },
   "license": "Eclipse Public License - v 2.0",
   "devDependencies": {
     "electron": "^15.3.1",
