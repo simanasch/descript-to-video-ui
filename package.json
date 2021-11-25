@@ -17,10 +17,15 @@
   ],
   "author": "simana <tktossi@live.com>",
   "build": {
-    "appId": "descript-to-video.ui",
+    "appId": "com.electron.descript-to-video.ui",
+    "copyright": "Copyright © 2021 ${author}",
     "win": {
       "target": "portable"
-    }
+    },
+    "files": [
+      "resources/**/*",
+      ".shadow-cljs/**/*"
+    ]
   },
   "license": "Eclipse Public License - v 2.0",
   "devDependencies": {
