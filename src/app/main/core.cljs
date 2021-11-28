@@ -1,5 +1,6 @@
 (ns app.main.core
-  (:require ["electron" :refer [app BrowserWindow crashReporter]]))
+  (:require ["electron" :refer [app BrowserWindow crashReporter]]
+            [app.main.backend :refer [start-core-server start-tts-server stop-core-server stop-tts-server]]))
 
 (def main-window (atom nil))
 
@@ -15,13 +16,16 @@
 
 (defn main []
   ; CrashReporter can just be omitted
+  (start-core-server)
+  (start-tts-server)
   (.start crashReporter
           (clj->js
-           {:companyName "MyAwesomeCompany"
-            :productName "MyAwesomeApp"
+           {:productName "descript-to-video"
             :submitURL "https://example.com/submit-url"
             :autoSubmit false}))
 
   (.on app "window-all-closed" #(when-not (= js/process.platform "darwin")
+                                  (stop-tts-server)
+                                  (stop-core-server)
                                   (.quit app)))
   (.on app "ready" init-browser))
