@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "shadow-cljs watch main renderer",
     "build": "shadow-cljs compile main renderer",
-    "clean": "rm -rf resources/public/js/* && rm -rf target",
+    "clean": "rm -rf resources/public/js/* && rm -rf target && rm -rf dist/",
     "pack": "electron-builder --dir",
     "dist": "electron-builder"
   },
