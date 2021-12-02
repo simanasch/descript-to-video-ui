@@ -13,4 +13,4 @@ target/
 dist/
 *.tgz
 # テスト用に使ってる依存先バイナリ
-resources/bin
+bin/
