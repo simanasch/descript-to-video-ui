@@ -27,7 +27,18 @@
       ".shadow-cljs/**/*"
     ],
     "extraResources":[
-      "bin/**/*"
+      {
+        "from": "../descript-to-video-core/target/uberjar/descriptToVideo-0.1.0-SNAPSHOT-standalone.jar",
+        "to" : "bin/descriptToVideo-0.1.0-SNAPSHOT-standalone.jar"
+      },
+      {
+        "from": "../descript-to-video-core/resources/",
+        "to" : "./"
+      },
+      {
+        "from": "../TTSController/src/SpeechGRpcServer/bin/x64/Release/net4.5.2/",
+        "to": "bin/SpeechGRpcServer/"
+      }
     ]
   },
   "license": "Eclipse Public License - v 2.0",
